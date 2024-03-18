@@ -43,6 +43,7 @@ class _MouseEventsState extends State<MouseEvents> {
   Stopwatch watch = new Stopwatch();
   double Time = 0.0;
   String status = "";
+  Color mycolor = const Color.fromARGB(137, 110, 104, 104);
 
   @override
   void initState() {
@@ -90,7 +91,6 @@ class _MouseEventsState extends State<MouseEvents> {
       },
       onPointerUp: (event) {
         // Up 할 때에는 button 구분 따로 없음
-        print("${event.buttons}");
         newmouse.button = Button.NULL;
         newmouse.action = Action.Done;
         newmouse.position = event.position;
@@ -100,9 +100,9 @@ class _MouseEventsState extends State<MouseEvents> {
       },
       child: Center(
         child: Container(
-          width: 200,
-          height: 200,
-          color: Colors.blue,
+          width: 300,
+          height: 300,
+          color: mycolor,
           child: Text(status),
         ),
       ),
@@ -132,11 +132,13 @@ class _MouseEventsState extends State<MouseEvents> {
           mouse.action = othermouse.action;
           mouse.position = othermouse.position;
           mouse.wheel = othermouse.wheel;
+          mycolor = const Color.fromARGB(137, 110, 104, 104);
           Time = time;
         }
         break;
       case Action.Click:
         {
+          mycolor = const Color.fromARGB(50, 50, 50, 50);
           mouse.button = othermouse.button;
           mouse.action = othermouse.action;
           mouse.position = othermouse.position;
@@ -152,8 +154,10 @@ class _MouseEventsState extends State<MouseEvents> {
           if (mouse.action == Action.Click && time - Time > 200.0) {
             if (othermouse.button == Button.Left) {
               mousePrint += " Drag Start ";
+              mycolor = const Color.fromARGB(50, 150, 50, 200);
             } else if (othermouse.button == Button.Right) {
               mousePrint += " Pinch Start ";
+              mycolor = const Color.fromARGB(50, 50, 150, 200);
             }
             mouse.button = othermouse.button;
             mouse.action = othermouse.action;
@@ -163,8 +167,10 @@ class _MouseEventsState extends State<MouseEvents> {
           } else if (othermouse.action == mouse.action) {
             if (othermouse.button == Button.Left) {
               mousePrint += " Drag Update";
+              mycolor = const Color.fromARGB(50, 255, 50, 255);
             } else if (othermouse.button == Button.Right) {
               mousePrint += " Pinch Update";
+              mycolor = const Color.fromARGB(50, 50, 255, 255);
             }
             mouse.button = othermouse.button;
             mouse.action = othermouse.action;
